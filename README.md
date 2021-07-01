@@ -2,7 +2,7 @@
 A code will let your code on website prettier
 
 ## Method to use
-Just add the following ling below in your javascript file
+Just add the following link below in your javascript file
 ```javascript
 import { beautify } from 'https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@master/beautify.js'
 ```
