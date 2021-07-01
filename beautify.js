@@ -142,7 +142,6 @@ beautify
     for(var i = 0; i < hls.lwe.length; ++i)
         fix_comment(hls.lwe[i][0]), fix_comment(hls.lwe[i][1]);
     fix_end();
-    console.log(sp);
     for(var i = 0; i < sp.length; ++i) {
         if(sp[i] == "\n") {
             reset_rec();

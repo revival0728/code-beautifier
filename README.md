@@ -2,6 +2,12 @@
 A code will let your code on website prettier
 
 ## Method to use
+Just add the following ling below in your javascript file
+```javascript
+import { beautify } from 'https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@master/beautify.js'
+```
+Below is the example code
+
 In `HTML file`
 ```html
 <!DOCTYPE html>	
@@ -16,7 +22,7 @@ In `HTML file`
 ```
 In `script.js`
 ```javascript
-import { beautify } from 'https://raw.githubusercontent.com/revival0728/code-beautifier/master/beautify.js'
+import { beautify } from 'https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@master/beautify.js'
 
 var code = `your source code`
 
