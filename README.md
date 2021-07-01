@@ -24,12 +24,16 @@ In `script.js`
 ```javascript
 import { beautify } from 'https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@master/beautify.js'
 
-var code = `your source code`
+var code = `print('hello, world')`
 
-beautify(code, 'your_id', 'your_language');
+beautify(code, 'source', 'python3');
 ```
 
 ## Support Language
 - c++
 - python3
 - javascript
+
+## Export functions
+- `beautify(code, target, lan)`: output the prettier code to element which "id" is `target`. return none.
+- `get_lan_data()`: return all the support language. return list.

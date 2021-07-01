@@ -180,6 +180,10 @@ beautify
     document.getElementById(target).innerHTML = `<ol class="code_line">${rcode}</ol>`;
 }
 
+export function
+get_lan_data () 
+{ return lan_data; }
+
 var is_css_add = false;
 
 var hls_data = [
