@@ -4,7 +4,7 @@ A code will let your code on website prettier
 ## Method to use
 Just add the following link below in your javascript file
 ```javascript
-import { beautify } from 'https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@master/beautify.js'
+import { beautify } from 'https://cdn.jsdelivr.net/gh/revival0728/code-beautifier/beautify.js'
 ```
 Below is the example code
 
@@ -22,7 +22,7 @@ In `HTML file`
 ```
 In `script.js`
 ```javascript
-import { beautify } from 'https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@master/beautify.js'
+import { beautify } from 'https://cdn.jsdelivr.net/gh/revival0728/code-beautifier/beautify.js'
 
 var code = `print('hello, world')`
 
