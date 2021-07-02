@@ -1,5 +1,7 @@
 import "https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
 
+var VERSION = "v1.2-beta";
+
 export function
 beautify
 (
@@ -12,7 +14,7 @@ beautify
         add_css();
         is_css_add = true;
     }
-    $.getJSON("https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@v1.1-beta/hls_data.json", function(hls_data) {
+    $.getJSON(`https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@${VERSION}/hls_data.json`, function(hls_data) {
         document.getElementById(target).classList.add("code_box");
         var find_hls = () => {
             var ret = 0;
@@ -141,11 +143,12 @@ beautify
                     !isNaN(parseFloat(str))
         };
         var is_str_empty = (str="") => {
+            if(str.length == 0) return true;
             for(var i = 0; i < str.length; ++i) {
-                if(str[i] != " " || str[i] != "\n" || str[i] != "\r")
-                    return false;
+                if(str[i] == " " || str[i] == "\r" || str[i] == "" || str[i] == "\n")
+                    return true;
             }
-            return true;
+            return false;
         };
         var rcode = "", tmp = "";
         for(var i = 0; i < hls.ct.length; ++i) fix_comment(hls.ct[i]);
@@ -162,7 +165,6 @@ beautify
             if(is_in(sp[i], hls.sl)) rec.sl = true;
             if(is_in(sp[i], hls.wd)) rec.wd = true;
             if(is_num(sp[i], hls.nr)) rec.nr = true;
-            if(is_in(sp[i], hls.bsl)) rec.bsl = true;
             if(!rec.ct) if(is_str(sp[i])) rec.lwe = true;
             if(is_in(sp[i], hls.lwn)) rec.lwn = true;
             if(is_in(sp[i], hls.ct) && !rec.lwe) rec.ct = true;
@@ -171,25 +173,17 @@ beautify
             else if(rec.lwn) tmp += highlight_line(sp[i]);
             else if(rec.lwe) tmp += highlight_str(sp[i]);
             else if(rec.wd) tmp += highlight_word(sp[i]);
-            else if(rec.bsl) {
-                var id = i;
-                while(id >= 0) {
-                    if(is_str_empty(sp[id])) --id;
-                    else break;
-                }
-                --id;
-                if(id >= 0) if(is_normal(sp[id])) {
-                    var _tmp = "";
-                    for(var j = id; j < i; ++j) _tmp += highlight_none(sp[j]);
-                    tmp = tmp.substring(0, tmp.length-_tmp.length) + highlight_before(sp[id]);
-                    for(var j = id+1; j < i; ++j) tmp += highlight_none(sp[j]);
-                }
-                if(rec.sl) tmp += highlight_symbol(sp[i]);
-                else tmp += highlight_none(sp[i]);
-            }
             else if(rec.sl) tmp += highlight_symbol(sp[i]);
             else if(rec.nr) tmp += highlight_number(sp[i]);
-            else tmp += highlight_none(sp[i]);
+            else {
+                var id = i+1;
+                while(id < sp.length) {
+                    if(!is_str_empty(sp[id])) break;
+                    ++id;
+                }
+                if(is_in(sp[id], hls.bsl)) tmp += highlight_before(sp[i]);
+                else tmp += highlight_none(sp[i]);
+            }
 
             set_rec([false, false, false, false, -1, -1, -1]);
             if(rec.lwe && !pass_str && is_str_end(sp[i]))
@@ -218,7 +212,7 @@ var __empty_hls = {
 var lan_data = get_lan_data();
 
 function add_css() {
-    $.getJSON("https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@v1.1-beta/theme_data.json", function(json) {
+    $.getJSON(`https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@${VERSION}/theme_data.json`, function(json) {
         var __css = json[0];
         var head = document.head || document.getElementsByTagName('head')[0]
         var style = document.createElement("style");
