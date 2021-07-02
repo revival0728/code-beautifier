@@ -6,12 +6,6 @@ Just add the code below in your javascript file
 ```javascript
 import { beautify } from 'https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@latest/beautify.js'
 ```
-Or add code below in your html head
-```html
-<script type="text/javascript" 
-	src="https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@latest/beautify.js">
-</script>
-```
 Below is the example code
 
 In `HTML file`
