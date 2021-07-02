@@ -33,6 +33,7 @@ beautify(code, 'source', 'python3');
 - c++
 - python3
 - javascript
+- css
 
 ## Export functions
 - `beautify(code, target, lan)`: output the prettier code to element which "id" is `target`. return none.
