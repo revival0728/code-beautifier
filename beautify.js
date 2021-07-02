@@ -12,7 +12,7 @@ beautify
         add_css();
         is_css_add = true;
     }
-    $.getJSON("hls_data.json", function(hls_data) {
+    $.getJSON("https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@v1.1-beta/hls_data.json", function(hls_data) {
         document.getElementById(target).classList.add("code_box");
         var find_hls = () => {
             var ret = 0;
@@ -218,7 +218,7 @@ var __empty_hls = {
 var lan_data = get_lan_data();
 
 function add_css() {
-    $.getJSON("theme_data.json", function(json) {
+    $.getJSON("https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@v1.1-beta/theme_data.json", function(json) {
         var __css = json[0];
         var head = document.head || document.getElementsByTagName('head')[0]
         var style = document.createElement("style");
