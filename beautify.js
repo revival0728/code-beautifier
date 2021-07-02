@@ -207,7 +207,7 @@ var hls_data = [
     },
     { // javascript
         sl: ["~", "=", "?", "&gt", "&lt", "{", "}", "[", "]", "(", ")", "#", ",", "!", "-", "+", "*", "/", "&", "|", ":", "%", ";", "."],
-        wd: ["if", "import", "else", "for", "while", "class", "None", "Boolean", "return", "const", "continue", "break", "true", "false", "String", "var", "function", "document"],
+        wd: ["if", "import", "else", "for", "while", "class", "None", "Boolean", "return", "const", "continue", "break", "true", "false", "String", "var", "function", "document", "from", "export"],
         nr: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
         bsl: ["("],
         lwe: [["`", "`"], ["\"", "\""], ["'", "'"], ["/*", "*/"]],

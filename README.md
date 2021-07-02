@@ -37,3 +37,8 @@ beautify(code, 'source', 'python3');
 ## Export functions
 - `beautify(code, target, lan)`: output the prettier code to element which "id" is `target`. return none.
 - `get_lan_data()`: return all the support language. return list.
+
+## Getting Error
+Check if you type the language or id right.
+
+If you cannot fix this report me an issue.
