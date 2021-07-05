@@ -1,0 +1,22 @@
+{
+  "name": "code-beautifier",
+  "version": "1.0.0",
+  "description": "A code will let your code on the website prettier",
+  "main": "beautify.js",
+  "scripts": {
+    "test": "node beautify.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/revival0728/code-beautifier.git"
+  },
+  "keywords": [
+    "code-beautify"
+  ],
+  "author": "revival0728",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/revival0728/code-beautifier/issues"
+  },
+  "homepage": "https://github.com/revival0728/code-beautifier#readme"
+}
