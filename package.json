@@ -1,6 +1,6 @@
 {
   "name": "code-beautifier",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A code will let your code on the website prettier",
   "main": "beautify.js",
   "scripts": {

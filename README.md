@@ -36,7 +36,7 @@ beautify(code, 'source', 'python3');
 - css
 
 ## Export functions
-- `beautify(code, target, lan)`: output the prettier code to element which "id" is `target`. return none.
+- `beautify(code, target, lan, show_lan, show_copy)`: output the prettier code to element which "id" is `target`. return none.
 - `get_lan_data()`: return all the support language. return list.
 
 ## Getting Error

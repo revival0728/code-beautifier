@@ -1,26 +1,43 @@
 import "https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
 
-var VERSION = "v1.2-beta";
+var VERSION = "v1.1.0";
 
 export function
 beautify
 (
     code = "", 
     target = "", 
-    lan = ""
+    lan = "",
+    show_lan = false,
+    show_copy = false
 )
 {
-    if(!is_css_add) {
+    if(!is_setup) {
         add_css();
-        is_css_add = true;
+        add_font();
+        add_clip(escape(code));
+        is_setup = true;
     }
-    $.getJSON(`https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@${VERSION}/hls_data.json`, function(hls_data) {
+    code = process_code(code);
+    $.getJSON(`https://cdn.jsdelivr.net/npm/code-beautifier@${VERSION}/hls_data.json`, function(hls_data) {
         document.getElementById(target).classList.add("code_box");
         var find_hls = () => {
             var ret = 0;
             while(lan_data[ret] != lan && ret < lan.length) ++ret;
             if(ret == lan_data.length) return __empty_hls;
             else return hls_data[ret];
+        }
+        var make_info = (str, click) => {
+            return `<button class="code_info" onclick=${click}>${str}</button>`;
+        }
+        var make_info_block = () => {
+            var opt = [show_lan, show_copy];
+            var info = [[lan, ""], ["copy", "__write_clipboard();"]]
+            var ret = "";
+            for(var i = 0; i < info.length; ++i)
+                if(opt[i])
+                    ret += make_info(info[i][0], info[i][1]);
+            return `<div class="code_info_block">${ret}</div>`
         }
         var hls = find_hls();
         if(hls == __empty_hls) {
@@ -189,7 +206,7 @@ beautify
             if(rec.lwe && !pass_str && is_str_end(sp[i]))
                 rec.lwe = false;
         }
-        document.getElementById(target).innerHTML = `<ol class="code_line">${rcode}</ol>`;
+        document.getElementById(target).innerHTML = `${make_info_block()}<ol class="code_line">${rcode}</ol>`;
     });
 }
 
@@ -197,7 +214,7 @@ export function
 get_lan_data () 
 { return ["c++", "python3", "javascript", "css"]; }
 
-var is_css_add = false;
+var is_setup = false;
 
 var __empty_hls = {
     sl:[""], 
@@ -212,9 +229,9 @@ var __empty_hls = {
 var lan_data = get_lan_data();
 
 function add_css() {
-    $.getJSON(`https://cdn.jsdelivr.net/gh/revival0728/code-beautifier@${VERSION}/theme_data.json`, function(json) {
+    $.getJSON(`https://cdn.jsdelivr.net/npm/code-beautifier@${VERSION}/theme_data.json`, function(json) {
         var __css = json[0];
-        var head = document.head || document.getElementsByTagName('head')[0]
+        var head = document.head || document.getElementsByTagName('head')[0];
         var style = document.createElement("style");
         head.appendChild(style);
         style.type = "text/css";
@@ -224,6 +241,24 @@ function add_css() {
             style.appendChild(document.createTextNode(__css));
         }
     });
+}
+
+function add_font() {
+    var _href = "https://cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css";
+    var head = document.head || document.getElementsByTagName("head")[0];
+    var link = document.createElement("link");
+    head.appendChild(link);
+    link.rel="stylesheet";
+    link.href = _href;
+}
+
+function add_clip(str) {
+    var code = `function __write_clipboard() { navigator.clipboard.writeText(unescape(\`${str}\`)).then(function() {}, function() {console.log("write_clipboard failed.")})};`;
+    var head = document.head || document.getElementsByTagName('head')[0];
+    var script = document.createElement("script");
+    head.appendChild(script);
+    script.type = "text/javascript";
+    script.appendChild(document.createTextNode(code));
 }
 
 function split(str="", key=[""]) {
@@ -249,6 +284,27 @@ function split(str="", key=[""]) {
     }
     ret.push(str.slice(back, str.length));
     return ret;
+}
+
+function process_code(code) {
+    var replace = (txt="", pat="", to="") => {
+        for(var i = 0; i < txt.length; ++i) {
+            if(i+pat.length <= txt.length) {
+                if(txt.substring(i, i+pat.length) == pat) {
+                    txt = txt.substring(0, i) + to + txt.substring(i+pat.length, txt.length);
+                    i += pat.length-1;
+                }
+            }
+        }
+        return txt;
+    }
+    for(var i = 0; i < code.length; ++i) {
+        if(code[i] == "<")
+            code = replace(code, "<", "&lt");
+        else if(code[i] == ">")
+            code = replace(code, ">", "&gt");
+    }
+    return code;
 }
 
 function highlight_word(str) { return `<span class="highlight_word">${str}</span>`; }
